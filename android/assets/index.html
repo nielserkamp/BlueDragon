@@ -1,9 +1,15 @@
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="reset.css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="app.js"></script>
+		<script src="game.js"></script>
+		<script src="ui.js"></script>
 	</head>
-	<body>
-	<script>
+	
+	<body onload="onPageLoaded()">
+		<script>
 
 		function sendAction(playerID, beaconID, actions) {
 			var message = {
@@ -37,5 +43,8 @@
 
 		sendAction(300, 12, [{"name": 'unlockSkill', "playerName": "Niels", "avatarID": 22}]);
 	</script>
+		<img src="resources/map.png" />
+		<div id="ui-container">
+		</div>
 	</body>
 </html>
