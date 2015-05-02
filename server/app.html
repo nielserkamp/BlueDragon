@@ -6,6 +6,7 @@ var Player = require('./player.js');
 var PlayerState = require('./playerState.js');
 
 var Global = require('./global.js');
+var GameData = require('./gameData.js');
 
 handlePost = function(data, response) {
 	/* Check response */
@@ -19,7 +20,12 @@ handlePost = function(data, response) {
 	}
 
 	/* Update position */
-	//Global.playerStates[data.playerID].position = Global.beaconPositions[data.beaconID];
+	var zone = GameData.beacons[data.beaconID];
+	var position = GameData.zones[zone].position;
+
+	/* Position */
+	Global.playerStates[data.playerID].position[0] = position[0] + Math.random() * 40 - 20;
+	Global.playerStates[data.playerID].position[1] = position[1] + Math.random() * 40 - 20;
 
 	/* Execute actions */
 	actions = data.actions;
@@ -38,9 +44,13 @@ handlePost = function(data, response) {
 }
 
 handleGet = function(query, response) {
-	Global.update();
+	Global.update(query.playerID);
 
-	return JSON.stringify(Global);
+	jsonString = JSON.stringify(Global.playerStates[query.playerID]);
+
+	Global.playerStates[query.playerID].events = [];
+
+	return jsonString;
 }
 
 http.createServer(function (request, response) {
@@ -63,7 +73,7 @@ http.createServer(function (request, response) {
 		response.end(handleGet(url.parse(request.url, true).query, response));
 	}
 
-}).listen(1337, '127.0.0.1');
+}).listen(1337);
 
 console.log('Server running at http://127.0.0.1:1337/')
 

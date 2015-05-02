@@ -13,7 +13,7 @@ module.exports.challengePlayer = function (player, action) {
 		return false;
 	}
 
-	Global.startCombatPlayersVSPlayer(player.id, action.playerID);
+	Global.startCombatPlayersVSPlayer(player.playerID, action.playerID);
 
 	console.log("challengePlayer");
 }
@@ -28,7 +28,7 @@ module.exports.setupPlayer = function (player, action) {
 	} 
 
 	player.name = action.playerName;
-	player.avatarID = actions.avatarID;
+	player.avatarID = action.avatarID;
 
 	return true;
 }

@@ -6,7 +6,8 @@ module.exports.default = function() {
 		state: 'setup',
 		player: Player.default,
 		players: [ ],
-		zone: "0",
-		countdown: Global.countdown
+		countdown: Global.countdown,
+		position: [0, 0],
+		events: [],
 	};
 }
