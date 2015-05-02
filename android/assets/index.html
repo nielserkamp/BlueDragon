@@ -5,9 +5,9 @@
 	<body>
 	<script>
 
-		function sendAction(userID, beaconID, actions) {
+		function sendAction(playerID, beaconID, actions) {
 			var message = {
-				'userID' : userID,
+				'playerID' : playerID,
 				'beaconID' : beaconID,
 				'actions': actions
 			};
@@ -33,23 +33,9 @@
 			// Do something
 		}
 
-		var markers = {'A' : 'b', 'B' : 'c'};
+		sendAction(300, 12, [{"name": 'setupPlayer', "playerName": "Niels", "avatarID": 22}]);
 
-		$.ajax({
-		    type: "POST",
-		    url: "http://127.0.0.1:1337",
-		    data: JSON.stringify(markers),
-		    dataType: "text",
-		    success: function(data){
-		    	handleState(JSON.parse(data));
-		    },
-		    failure: function(errMsg) {
-		        alert(errMsg);
-		    },
-		    complete: function() {
-		    	alert('COMPLETE');
-		    }
-		});
+		sendAction(300, 12, [{"name": 'unlockSkill', "playerName": "Niels", "avatarID": 22}]);
 	</script>
 	</body>
 </html>

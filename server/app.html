@@ -1,14 +1,46 @@
 var http = require('http');
 var url = require('url');
 
+var PlayerActions = require('./playerActions.js');
+var Player = require('./player.js');
+var PlayerState = require('./playerState.js');
+
+var Global = require('./global.js');
+
 handlePost = function(data, response) {
-	console.log(data.userID);
-	
-	return "{}";
+	/* Check response */
+	if(data.playerID == undefined || data.beaconID == undefined || data.actions == undefined) {
+		return '{"error": "Incorrect message."}';
+	}
+
+	/* Initialize new player */
+	if(Global.players[data.playerID] == undefined) {
+		Global.newPlayer(data.playerID);
+	}
+
+	/* Update position */
+	//Global.playerStates[data.playerID].position = Global.beaconPositions[data.beaconID];
+
+	/* Execute actions */
+	actions = data.actions;
+	for(i = 0; i < actions.length; i++) {
+		if(!PlayerActions[actions[i].name](Global.players[data.playerID], actions[i])) {
+			return '{"error": "Error in ' + actions[i].name + '."}'; 
+		}
+	}
+
+	/* Update local game state */
+
+	return handleGet({
+		"playerID": data.playerID,
+		"beaconID": data.beaconID 
+	}, response);
 }
 
 handleGet = function(query, response) {
-	
+	Global.update();
+
+	return JSON.stringify(Global);
 }
 
 http.createServer(function (request, response) {
