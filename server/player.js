@@ -5,8 +5,9 @@ module.exports.default = function() {
 		avatarID: 1,
 		health: 100,
 		mana: 100,
-		experience: 100,
-		skills: []
+		experience: 0,
+		skills: [], 
+		level: 1
 	};
 }
 

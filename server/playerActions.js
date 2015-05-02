@@ -42,3 +42,36 @@ module.exports.unlockSkill = function (player, action) {
 
 	return true;
 }
+
+module.exports.finishCombat = function(player, action) {
+	if(Global.state != 'running') {
+		return false;
+	}
+
+	var state = Global.playerStates[player.playerID];
+
+	if(action.victoryStatus == 'victory') {
+		state.player.health = action.health;
+		state.player.mana = action.mana;
+		state.player.experience += action.experienceGained;
+		state.status = 'alive';
+
+		if(state.player.experience > (10 + state.player.level * state.player.level)) {
+			state.player.experience -= (10 + state.player.level * state.player.level);
+			state.player.level += 1;
+		}
+	}else if(action.victoryStatus == 'flee') {
+		state.player.health = action.health;
+		state.player.mana = action.mana;
+		state.status = 'alive';
+	} else if(action.victoryStatus == 'defeated') {
+		state.player.health = 0;
+		state.player.mana = 0;
+		state.status = 'dead';
+	}
+	state.player.state = 'map';
+	delete Global.liveMonsters[state.zoneInCombat];
+	JSON.stringify(Global.liveMonsters);
+
+	return true;
+}

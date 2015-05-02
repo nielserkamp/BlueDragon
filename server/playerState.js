@@ -9,5 +9,8 @@ module.exports.default = function() {
 		countdown: Global.countdown,
 		position: [0, 0],
 		events: [],
+		zone: 7,
+		status: 'alive',
+		zoneInCombat: 0
 	};
 }

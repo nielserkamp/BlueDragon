@@ -7,7 +7,7 @@ var local = module.exports;
 var lastTimestamp = new Date().getTime() / 1000;
 var dTimestamp = 0;
 
-local.countdown = 100;
+local.countdown = 5;
 local.state = 'start'; /* running, done */
 
 local.players = { };
@@ -39,7 +39,7 @@ local.update = function(playerID) {
 			playerID: local.playerStates[key].player.playerID,
 			avatarID: local.playerStates[key].player.avatarID,
 			position: local.playerStates[key].position,
-			status: 'alive',
+			status: local.playerStates[key].status,
 		});
 	}
 
@@ -78,6 +78,7 @@ function spawnMonsters() {
 			console.log("Skipped spawning in zone " + i);
 			continue;
 		}
+
 		monster = GameData.monsters[GameData.zones[i].monsters[0]];
 		if(!local.liveMonsters[i]) {
 			local.liveMonsters[i] = {
@@ -88,6 +89,7 @@ function spawnMonsters() {
 				inCombat: false,
 				dead: false,
 			}
+			console.log("SPAWNED MONSTER IN ZONE: " + i);
 		}
 	}
 }
@@ -96,8 +98,9 @@ function spawnMonsters() {
 local.checkCombat = function(playerID) {
 	var monster = local.liveMonsters[local.playerStates[playerID].zone];
 	var randN = Math.random();
-	if(monster && !monster.inCombat && randN < 1) {
+	if(monster && !monster.inCombat && randN < 1 && local.playerStates[playerID].status == 'alive') {
 		local.startCombatPlayerVSMonster(local.playerStates[playerID].player.playerID, monster);
+		local.playerStates[playerID].zoneInCombat = local.playerStates[playerID].zone;
 	}
 }
 
@@ -113,7 +116,9 @@ local.startCombatPlayerVSMonster = function(playerID, monster) {
 			damage: monster.damage,
 		}
 	}
+
 	Global.playerStates[playerID].events[0] = eventStartCombat;
+	Global.playerStates[playerID].status = 'combat';
 
 	monster.inCombat = true;
 }

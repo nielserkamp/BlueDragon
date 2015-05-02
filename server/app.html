@@ -9,6 +9,8 @@ var Global = require('./global.js');
 var GameData = require('./gameData.js');
 
 handlePost = function(data, response) {
+	console.log(JSON.stringify(data));
+
 	/* Check response */
 	if(data.playerID == undefined || data.beaconID == undefined || data.actions == undefined) {
 		return '{"error": "Incorrect message."}';
@@ -23,9 +25,18 @@ handlePost = function(data, response) {
 	var zone = GameData.beacons[data.beaconID];
 	var position = GameData.zones[zone].position;
 
+	if(zone == 7 && Global.playerStates[data.playerID].status != 'combat') {
+		Global.playerStates[data.playerID].player.health = Math.min(Global.playerStates[data.playerID].player.health + 5, 100);
+		Global.playerStates[data.playerID].player.mana = Math.min(Global.playerStates[data.playerID].player.mana + 5, 100);
+		if(Global.playerStates[data.playerID].status == 'defeated') {
+			Global.playerStates[data.playerID].status = 'alive';
+		}
+	}
+
 	/* Position */
 	Global.playerStates[data.playerID].position[0] = position[0] + Math.random() * 40 - 20;
 	Global.playerStates[data.playerID].position[1] = position[1] + Math.random() * 40 - 20;
+	Global.playerStates[data.playerID].zone = zone;
 
 	/* Execute actions */
 	actions = data.actions;
@@ -49,7 +60,7 @@ handleGet = function(query, response) {
 	jsonString = JSON.stringify(Global.playerStates[query.playerID]);
 
 	Global.playerStates[query.playerID].events = [];
-
+	
 	return jsonString;
 }
 
