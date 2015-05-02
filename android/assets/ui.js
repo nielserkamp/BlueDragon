@@ -22,8 +22,10 @@ function showSetupPlayerScreen() {
 	container.attr("class", "setupPlayer");
 
 	// Name
+	container.append("<br /><br /><h1 style='text-decoration: underline; font-size: 24px;color: navy; font-weight: bold;'>Blue Dragon</h2><br /><br /><span style='color: white; font-weight: normal;'>Name:<br /></span>")
 	var nameInput = $("<input>");
 	nameInput.attr("type", "text");
+	nameInput.attr("value", "android sux " + Math.round(Math.random() * 100));
 	container.append(nameInput);
 
 	// Submit
@@ -78,4 +80,76 @@ function createAvatar(player) {
 		container.append(stateImage);
 	}
 	return container;
+}
+
+
+// Random name generator
+function randomName() {
+
+	var firstParts = [
+		"Lord gaylord",
+		"Mister Bean",
+		"Ares",
+		"Aprhodites",
+		"Vampire Lord",
+		"Jenkins",
+		"McLovin",
+		"Ronald McDonald",
+		"Spongebob",
+		"Samus",
+		"Peach",
+		"Murdoc",
+		"Tim",
+		"Osama",
+		"Pieter",
+		"Bush"
+	];
+
+	var middleParts = [
+		" the puny ",
+		" the cruel ",
+		" the great ",
+		" the massive ",
+		" the weird ",
+		" the mediocre ",
+		" the stupid ",
+		" the lame ",
+		" the genious ",
+		" the little ",
+		" the giant ",
+		" the terrorist ",
+		" the vindictous ",
+		" the worthless ",
+		" the creeper ",
+		" the sumpetous ",
+		" the weak "
+	];
+
+
+	var lastParts1 = [
+		"consumer",
+		"thriver",
+		"god",
+		"assistant",
+		"philantropist",
+		"feeder",
+		"man",
+		"coder"
+	];
+
+	var lastParts2 = [
+		" of cocks",
+		" of poo",
+		" of bugs",
+		" of obama",
+		" of fur",
+		" of 666",
+		" of code"
+	];
+
+	return firstParts[Math.floor(Math.random() * firstParts.length)] +
+	middleParts[Math.floor(Math.random() * middleParts.length)] +
+	lastParts1[Math.floor(Math.random() * lastParts1.length)] +
+	lastParts2[Math.floor(Math.random() * lastParts2.length)]
+
 }
