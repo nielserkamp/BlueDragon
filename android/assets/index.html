@@ -6,7 +6,42 @@
 		<script src="app.js"></script>
 		<script src="game.js"></script>
 		<script src="ui.js"></script>
+		<script>
+
+		function sendAction2(playerID, beaconID, actions) {
+			var message = {
+				'playerID' : playerID,
+				'beaconID' : beaconID,
+				'actions': actions
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "http://127.0.0.1:1337",
+				data: JSON.stringify(message),
+				dataType: "text",
+				success: function(data) {
+					handleStated(JSON.parse(data));
+				},
+				failure: function(errMsg) {
+					alert(errMsg);
+				},
+				complete: function() {
+					// Nothing atm
+				}
+			});
+		}
+
+		function handleStated(data) {
+			// Do something
+		}
+
+		//sendAction2(300, 35, [{"name": 'setupPlayer', "playerName": "Niels", "avatarID": 22}]);
+
+		//sendAction2(300, 35, [{"name": 'unlockSkill', "playerName": "Niels", "avatarID": 22}]);
+	</script>
 	</head>
+	
 	<body onload="onPageLoaded()">
 		<img src="resources/map.png" />
 		<div id="ui-container">

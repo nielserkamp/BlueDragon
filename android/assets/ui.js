@@ -6,7 +6,13 @@ var avatars = [
 	"resources/odin.jpg",
 	"resources/zeus.jpg",
 	"resources/ra.jpg",
-	"resources/jupiter.jpg"
+	"resources/jupiter.jpg",
+	"resources/1.jpg",
+	"resources/2.jpg",
+	"resources/3.jpg",
+	"resources/4.jpg",
+	"resources/5.jpg",
+	"resources/6.jpg"
 ];
 
 var stateImages = {

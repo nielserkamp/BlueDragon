@@ -24,6 +24,7 @@ function sendAction(userID, beaconID, actions) {
 		'actions': actions
 	};
 
+			console.log("HI");
 	$.ajax({
 		type: "POST",
 		url: "http://192.168.1.119:1337",
@@ -73,11 +74,9 @@ function handleState(data) {
 
 	// Draw avatars
 	drawAvatars();
-
 	for(var i = 0; i < data.events.length; i++) {
 		var evt = data.events[i];
 		if(evt.name == "startCombat") {
-
 			// TODO
 			finishCombat('defeated', 0, 0, 0);
 		}
