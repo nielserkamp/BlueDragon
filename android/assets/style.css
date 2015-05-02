@@ -63,15 +63,18 @@ body{
 }
 
 .setupPlayer {
+
 	position: fixed;
 	z-index: 10;
 	left: 50%;
 	top: 30px;
 	width: 250px;
+	height: 250px;
 	margin-left: -125px;
 	background-color: white;
+	background-image: url('resources/register-bg.png');
 	border-radius: 25px;
-	border: 2px solid black;
+	border: 5px solid #334ECD;
 	text-align: center;
 	z-index: 1000;
 }

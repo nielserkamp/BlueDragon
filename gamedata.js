@@ -154,7 +154,7 @@ var gamedata = {
         },
     },
 
-    zones: [
+    zones = [
         {
             monsters: ['Oversized Rat'],
             position: [883, 240],
@@ -248,7 +248,7 @@ var gamedata = {
         },
     ],
 
-    beacons: {
+    beacons = {
         '435': 0,
         '606': 0,
         '222': 0,

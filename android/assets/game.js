@@ -13,6 +13,10 @@ function setupPlayer(name, avatarId) {
 	]);
 }
 
+function sendEasyAction(actions) {
+	sendAction(playerID, currentBeacon, actions);
+}
+
 function sendAction(userID, beaconID, actions) {
 	var message = {
 		'playerID' : userID,
@@ -20,6 +24,7 @@ function sendAction(userID, beaconID, actions) {
 		'actions': actions
 	};
 
+			console.log("HI");
 	$.ajax({
 		type: "POST",
 		url: "http://192.168.1.119:1337",
@@ -35,6 +40,21 @@ function sendAction(userID, beaconID, actions) {
 			// Nothing atm
 		}
 	});
+}
+
+// Victory status: 'victory', 'flee', 'defeated'
+// health: health left
+// mana: mana left
+function finishCombat(victoryStatus, health, mana, experienceGained) {
+	sendEasyAction([
+			{
+				name: "finishCombat",
+				victoryStatus: victoryStatus,
+				health: health,
+				mana: mana,
+				experienceGained: experienceGained
+			}
+		]);
 }
 
 function handleState(data) {
@@ -54,10 +74,11 @@ function handleState(data) {
 
 	// Draw avatars
 	drawAvatars();
-
-	// Parse events
-	// TODO
-
-
-
+	for(var i = 0; i < data.events.length; i++) {
+		var evt = data.events[i];
+		if(evt.name == "startCombat") {
+			// TODO
+			finishCombat('defeated', 0, 0, 0);
+		}
+	}
 }
