@@ -1,0 +1,37 @@
+var http = require('http');
+var url = require('url');
+
+handlePost = function(data, response) {
+	console.log(data.userID);
+	
+	return "{}";
+}
+
+handleGet = function(query, response) {
+	
+}
+
+http.createServer(function (request, response) {
+	/* Response header */
+	response.writeHead(200, {
+		'Access-Control-Allow-Origin': '*',
+		'Content-Type': 'text/plain'
+	});
+
+	/* Function calls for data handling of GET and POST requests */
+	var data = '';
+	if(request.method == 'POST') {
+		request.on('data', function(chunk) {
+			data += chunk;
+		});
+		request.on('end', function() {
+			response.end(handlePost(JSON.parse(data), response));
+		})
+	} else if(request.method == 'GET') {
+		response.end(handleGet(url.parse(request.url, true).query, response));
+	}
+
+}).listen(1337, '127.0.0.1');
+
+console.log('Server running at http://127.0.0.1:1337/')
+
