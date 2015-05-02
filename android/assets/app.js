@@ -23,6 +23,7 @@ var players = [];
 
 function onPageLoaded() {
 	// Initially draw avatars
+	// TODO start server communicating
 	drawAvatars();
 
 	// Register player

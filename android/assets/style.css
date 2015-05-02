@@ -1,9 +1,13 @@
 html {
 	font-family: arial;
 }
-body {
+
+body{
+	height:100%;
 	position: relative;
+	background-color: black;
 }
+
 #container {	
 	position: fixed;
 	width: 100%;
@@ -69,8 +73,83 @@ body {
 	border-radius: 25px;
 	border: 2px solid black;
 	text-align: center;
+	z-index: 1000;
 }
 
 .setupPlayer > input, button {
 	margin: 10px;
+	
+}
+
+#ui-battle-avatar{
+	max-width:25%;
+	max-height:100%;
+	float: left;
+	
+	Box-sizing: Border-box;
+}
+
+#ui-battle-status{
+	width:70%;
+	float: left;
+	Box-sizing: Border-box;
+}
+#ui-battle-options{
+	width:100%;
+	Box-sizing: Border-box;
+}
+#ui-battle-status div{
+	Box-sizing: Border-box;
+}
+#ui-battle-options button{
+	padding:10px;
+	margin: 20px;
+	font-size: 15px;
+}
+#ui-battle-name{
+	width:70%;
+
+	font-size: 30px;
+	font-weight: bold;
+	text-align: left;
+	background-color: #CBCBCB;
+	padding:15px;
+	color: #4E1010;
+	float: left;
+}
+#ui-battle-options button#doge{
+	background-color: #85EC85;
+	color: #235823;
+}
+#ui-battle-options button#hit{
+	background-color: #7474ED;
+	color: #262667;
+}
+#ui-battle-options button#flee{
+	background-color: #FF9E9E;
+	color: #491818;
+}
+
+#ui-battle-popup{
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	height:100%;
+	top:0%;
+	left:0%;
+	padding:20px;
+	Box-sizing: Border-box;
+	opacity: 0.9;
+    filter: alpha(opacity=90);
+    display:none;
+
+}
+
+#ui-battle-popup-inner{
+	width: 100%;
+	height:100%;
+	background-color: white;
+	border-radius: 25px;
+	padding:25px;
+	Box-sizing: Border-box;
 }
