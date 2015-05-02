@@ -1,7 +1,55 @@
 <html>
 	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	</head>
 	<body>
-		Hello Webview!
+	<script>
+
+		function sendAction(userID, beaconID, actions) {
+			var message = {
+				'userID' : userID,
+				'beaconID' : beaconID,
+				'actions': actions
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "http://127.0.0.1:1337",
+				data: JSON.stringify(message),
+				dataType: "text",
+				success: function(data) {
+					handleState(JSON.parse(data));
+				},
+				failure: function(errMsg) {
+					alert(errMsg);
+				},
+				complete: function() {
+					// Nothing atm
+				}
+			});
+		}
+
+		function handleState(data) {
+			// Do something
+		}
+
+		var markers = {'A' : 'b', 'B' : 'c'};
+
+		$.ajax({
+		    type: "POST",
+		    url: "http://127.0.0.1:1337",
+		    data: JSON.stringify(markers),
+		    dataType: "text",
+		    success: function(data){
+		    	handleState(JSON.parse(data));
+		    },
+		    failure: function(errMsg) {
+		        alert(errMsg);
+		    },
+		    complete: function() {
+		    	alert('COMPLETE');
+		    }
+		});
+	</script>
 	</body>
 </html>
