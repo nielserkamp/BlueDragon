@@ -27,7 +27,7 @@ function startCombat( data,flee ) {
 	console.log( 'hp:'+hp );
 	$('#ui-battle-popup').show( 'fade' );
 
-	$('#ui-battle-name').text( randomName(); );
+	$('#ui-battle-name').text( randomName());
 
 	$("#ui-battle-avatar").attr('src',avatars[data.enemy.id]);
 	$("#ui-battle-status").html('<div style="padding:20px;height:56px;background-color:#06790C;width:'+data.enemy.health+'%">MONSTER HP:'+data.enemy.health+'%</div><div style="height:56px;padding:20px;background-color:#3F3F7A;width:'+mana+'%">YOUR MANA:'+mana+'%</div><div style="height:56px;padding:20px;background-color:#77E283;width:'+hp+'%">YOUR HP:'+hp+'%</div>');
