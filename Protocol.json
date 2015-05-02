@@ -1,0 +1,83 @@
+
+/* client to server POST */
+{
+    playerID: 1,
+    beaconID: 51353
+    actions: [
+        {
+            name: 'useSkill',
+            skillID: 121,
+        },
+        {
+            name: 'challengePlayer',
+            playerID: 21,
+        },
+        {
+            name: 'setupPlayer',
+            playerName: 'asdasd',
+            ready: true,
+            avatarID: 12,
+        },
+        {
+            name: 'unlockSkill',
+            skillID: 12,
+        }
+    ],
+}
+
+
+/* server reseponse */
+{
+    state: 'setup', // 'combat', 'map', 'finish',
+    players: [
+        {
+            name: 'ASD',
+            id: 12,
+            avatar: 12,
+            position: [545.5, 315],
+            status: 'dead' /* 'alive' 'combat' */
+        },
+    ],
+    /* setup */
+    countdown: 35,
+
+    /* play */
+    highestLevel: 12,
+
+    /* finish */
+    highScore: [{ playerID: 12, level: 20}, ... ],
+
+    /* combat */
+    enemy: {
+        opponent: 'player', // 'monster'
+        id: 12,
+        health: 23,
+        mana: 33,
+    }
+
+    player: {
+        heath: 12,
+        mana: 44,
+        skills: [213, 23, 12, 4, 1],
+        experience: 12,
+        level: 11
+    }
+
+    events: [
+        { name: 'startGame' }, // setup
+        { name: 'endGame' },
+        { name: 'skillUnlocked', skillID: 12 },
+        { name: 'playerChallenged', player1: 24, player2: 10 },
+        { name: 'monsterEncounter', monsterID: 5 },
+        { name: 'combatStart' },
+        { name: 'combatEnd', reason: 'victory' /* 'escaped' 'defeat' */, experience: 23 },
+        { name: 'respawn' },
+        { name: 'combatTurn', target: 'player', /* 'enemy' */ action: [
+            skill: 12,
+            damage: 23,
+            crit: true           
+        ]},
+        { name: 'levelUp', level: 12 },
+
+}
+
