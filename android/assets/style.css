@@ -1,0 +1,62 @@
+html {
+	font-family: arial;
+}
+#container {	
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+}
+
+.avatar {
+	position: absolute;
+	z-index: 2;
+	text-align: center;
+	color: white;
+	width: auto;
+}
+
+
+.avatarImage {
+	position: relative;
+	width: 64px;
+	height: 64px;
+	border-radius: 999px;
+	border: 2px solid white;
+}
+
+.avatar > div {
+	position: relative;
+	background-color: #334ECD;
+	border: 1px solid white;
+	border-radius: 999px;
+	padding: 0px 5px;
+	margin-top: -10px;
+}
+
+.avatarState { 
+	position: absolute;
+	border-radius: 999px;
+	top: 0;
+	left: 50%;
+	width: 24px;
+	height: 24px;
+	z-index: 3;
+	margin-top: -7px;
+	margin-left: 15px;
+}
+
+.dead {
+	border: 1px solid white;
+}
+.combat {
+	border: 1px solid white;
+}
+
+.setupPlayer {
+	position: fixed;
+	background-color: red;
+	z-index: 1000;
+}

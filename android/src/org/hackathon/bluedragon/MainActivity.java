@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.movin.core.data.beacon.BeaconIdentifier;
+import com.movin.core.utils.TimingProvider;
 import com.movin.proximity.MovinProximityEngine;
 import com.movin.proximity.MovinProximityEvent;
 import com.movin.proximity.MovinProximityListener;
@@ -25,6 +26,7 @@ public class MainActivity extends Activity implements MovinSDKCallback,
 	private MovinProximityEngine proximity;
 
 	private BeaconFilter filter;
+	private MovinProximityEvent current;
 
 	public MainActivity() {
 		filter = new BeaconFilter(
@@ -47,6 +49,7 @@ public class MainActivity extends Activity implements MovinSDKCallback,
 		screen = new WebView(this);
 		screen.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
+		screen.getSettings().setJavaScriptEnabled(true);
 
 		setContentView(screen);
 
@@ -55,6 +58,7 @@ public class MainActivity extends Activity implements MovinSDKCallback,
 		MovinSDK.initialize("movin", "5544737a279cb08aa318191d", this, this);
 	}
 
+	
 	@Override
 	public void initialized(boolean success, Exception ex) {
 		if (success) {
@@ -92,6 +96,8 @@ public class MainActivity extends Activity implements MovinSDKCallback,
 
 		MovinProximityEvent closestBeacon = null;
 		for (MovinProximityEvent e : filtered) {
+			if(e.distance == -1)
+				continue;
 			if (closestBeacon == null || e.distance < closestBeacon.distance) {
 				closestBeacon = e;
 			}
@@ -99,10 +105,21 @@ public class MainActivity extends Activity implements MovinSDKCallback,
 		if (closestBeacon == null) {
 			return;
 		}
-
-		showToast("closest beacon: " + closestBeacon.beacon.getMinor(), true);
+		if(current == null) {
+			current = closestBeacon;
+		}
+		
+		if(closestBeacon.distance < 8) {
+			current = closestBeacon;
+		}
+		
+		long time = TimingProvider.getInstance().getTime() - prev;
+		prev = TimingProvider.getInstance().getTime();
+		
+		//showToast("closest beacon: " + current.beacon.getMinor() + " range: " + current.distance + " time: " + time, true);
 	}
 
+	long prev = 0;
 	private void callJavascript(String javascript) {
 		screen.loadUrl("javascript:" + javascript);
 	}
