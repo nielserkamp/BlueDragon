@@ -14,42 +14,10 @@ var stateImages = {
 	combat: "resources/combat.jpg"
 }
 
-// Players on the map
-var players = [
-	{
-		name: "Beethoven",
-		avatar: 0,
-		status: "combat",
-		position: [520, 630]
-	},
-	{
-		name: "Odin",
-		avatar: 1,
-		status: "alive",
-		position: [520, 530]
-	},
-	{
-		name: "Zeus",
-		avatar: 2,
-		status: "dead",
-		position: [700, 630]
-	},
-	{
-		name: "Ra",
-		avatar: 3,
-		status: "alive",
-		position: [890, 250]
-	},
-	{
-		name: "Jupiter",
-		avatar: 4,
-		status: "alive",
-		position: [590, 220]
-	}
-];
 
 // Initialize
 function showSetupPlayerScreen() {
+
 	var container = $("<div>");
 	container.attr("class", "setupPlayer");
 
@@ -61,12 +29,14 @@ function showSetupPlayerScreen() {
 	// Submit
 	var submit = $("<button>");
 	submit.on("click", function() {
-
+		var avatar = Math.min(Math.floor(Math.random() * 5), 4);
+		setupPlayer(nameInput[0].value, avatar);
+		container.remove();
 	});
 	submit.append("Register!");
 	container.append(submit);
 
-	$("#ui-container").append(container);
+	$("body").append(container);
 }
 
 
@@ -91,7 +61,7 @@ function createAvatar(player) {
 	
 	// Avatar logo
 	var img = $("<img>");
-	img.attr("src", avatars[player.avatar]);
+	img.attr("src", avatars[player.avatarID]);
 	img.attr("class", "avatarImage");
 	container.append(img);
 
