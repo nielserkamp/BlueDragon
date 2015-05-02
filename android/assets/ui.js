@@ -32,6 +32,7 @@ function showSetupPlayerScreen() {
 	var nameInput = $("<input>");
 	nameInput.attr("type", "text");
 	nameInput.attr("value", "android sux " + Math.round(Math.random() * 100));
+	nameInput.attr("value", randomName());
 	container.append(nameInput);
 
 	// Submit
