@@ -6,12 +6,9 @@
 		<script src="app.js"></script>
 		<script src="game.js"></script>
 		<script src="ui.js"></script>
-	</head>
-	
-	<body onload="onPageLoaded()">
 		<script>
 
-		function sendAction(playerID, beaconID, actions) {
+		function sendAction2(playerID, beaconID, actions) {
 			var message = {
 				'playerID' : playerID,
 				'beaconID' : beaconID,
@@ -24,7 +21,7 @@
 				data: JSON.stringify(message),
 				dataType: "text",
 				success: function(data) {
-					handleState(JSON.parse(data));
+					handleStated(JSON.parse(data));
 				},
 				failure: function(errMsg) {
 					alert(errMsg);
@@ -35,14 +32,17 @@
 			});
 		}
 
-		function handleState(data) {
+		function handleStated(data) {
 			// Do something
 		}
 
-		sendAction(300, 12, [{"name": 'setupPlayer', "playerName": "Niels", "avatarID": 22}]);
+		//sendAction2(300, 35, [{"name": 'setupPlayer', "playerName": "Niels", "avatarID": 22}]);
 
-		sendAction(300, 12, [{"name": 'unlockSkill', "playerName": "Niels", "avatarID": 22}]);
+		//sendAction2(300, 35, [{"name": 'unlockSkill', "playerName": "Niels", "avatarID": 22}]);
 	</script>
+	</head>
+	
+	<body onload="onPageLoaded()">
 		<img src="resources/map.png" />
 		<div id="ui-container">
 		</div>

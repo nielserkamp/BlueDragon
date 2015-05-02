@@ -98,7 +98,7 @@ function spawnMonsters() {
 local.checkCombat = function(playerID) {
 	var monster = local.liveMonsters[local.playerStates[playerID].zone];
 	var randN = Math.random();
-	if(monster && !monster.inCombat && randN < 1 && local.playerStates[playerID].status == 'alive') {
+	if(monster && !monster.inCombat && randN < 0.1 && local.playerStates[playerID].status == 'alive') {
 		local.startCombatPlayerVSMonster(local.playerStates[playerID].player.playerID, monster);
 		local.playerStates[playerID].zoneInCombat = local.playerStates[playerID].zone;
 	}

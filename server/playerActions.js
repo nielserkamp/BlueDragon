@@ -71,7 +71,6 @@ module.exports.finishCombat = function(player, action) {
 	}
 	state.player.state = 'map';
 	delete Global.liveMonsters[state.zoneInCombat];
-	JSON.stringify(Global.liveMonsters);
 
 	return true;
 }
