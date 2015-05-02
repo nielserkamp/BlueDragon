@@ -1,10 +1,10 @@
 
-{
+var gamedata = {
     skills: {
         'Escape': {
             description: 'Attempt to escape combat',
             // image: 'IMAGE.png',
-            succesRate: function(player, enemy) {
+            successRate: function(player, enemy) {
                 return Math.max(0, 4 + player.level - enemy.level) * 0.2
             },
             escape: true,
@@ -38,7 +38,7 @@
             cooldown: 6,
             mana: 25,
             heal: 40,
-            succesRate: function(player, enemy) {
+            successRate: function(player, enemy) {
                 return Number(player.health / player.maxHealth < 0.5);
             },
         },
@@ -75,12 +75,12 @@
             followingTurns: [{ healMana: 20 }, { healMana: 20 }, { healMana: 20 }, { healMana: 20 }],
         },
         'Charge Lightning': {
-            description: 'Charge a lightning bolt that deals 50 damage on your next attack'
+            description: 'Charge a lightning bolt that deals 50 damage on your next attack',
             mana: 50,
             cooldown: 2,
             followingTurns: [{ damage: 50 }],
         },
-    ],
+    },
 
     startingSkills: ['Escape', 'Punch', 'Throw Rock'],
 
@@ -249,14 +249,14 @@
     ],
 
     beacons: {
-        '435': 0
-        '606': 0
+        '435': 0,
+        '606': 0,
         '222': 0,
 
         '264': 1,
+        '262': 1,
 
         '35': 2,
-        '262': 2,
 
         '753': 3,
         '916': 3,
