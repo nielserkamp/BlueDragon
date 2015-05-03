@@ -20,6 +20,9 @@ var stateImages = {
 	combat: "resources/combat.jpg"
 }
 
+// TODO
+var local = true;
+
 
 // Initialize
 function showSetupPlayerScreen() {
@@ -32,7 +35,7 @@ function showSetupPlayerScreen() {
 	var nameInput = $("<input>");
 	nameInput.attr("type", "text");
 	nameInput.attr("value", "android sux " + Math.round(Math.random() * 100));
-	nameInput.attr("value", randomName());
+	nameInput.attr("value", randomStartName());
 	container.append(nameInput);
 
 	// Submit
@@ -41,11 +44,21 @@ function showSetupPlayerScreen() {
 		var avatar = Math.min(Math.floor(Math.random() * 5), 4);
 		setupPlayer(nameInput[0].value, avatar);
 		container.remove();
+
+		if(local) {
+			doLocalStuff();
+		}
 	});
 	submit.append("Register!");
 	container.append(submit);
 
 	$("body").append(container);
+}
+
+function doLocalStuff() {
+	setInterval(function() {
+		sendEasyAction([]);
+	}, 500);
 }
 
 
@@ -91,6 +104,28 @@ function createAvatar(player) {
 
 
 // Random name generator
+function randomStartName() {
+		var firstParts = [
+		"Lord gaylord",
+		"Mister Bean",
+		"Ares",
+		"Aprhodites",
+		"Vampire Lord",
+		"Jenkins",
+		"McLovin",
+		"Ronald McDonald",
+		"Spongebob",
+		"Samus",
+		"Peach",
+		"Murdoc",
+		"Tim",
+		"Osama",
+		"Pieter",
+		"Bush"
+	];
+
+	return firstParts[Math.floor(Math.random() * firstParts.length)];
+}
 function randomName() {
 
 	var firstParts = [
@@ -155,7 +190,7 @@ function randomName() {
 	];
 
 	return firstParts[Math.floor(Math.random() * firstParts.length)] +
-	middleParts[Math.floor(Math.random() * middleParts.length)] +
+	middleParts[Math.floor(Math.random() * middleParts.length)] + "<br />" +
 	lastParts1[Math.floor(Math.random() * lastParts1.length)] +
 	lastParts2[Math.floor(Math.random() * lastParts2.length)]
 

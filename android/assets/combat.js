@@ -2,71 +2,86 @@ var testEventData = { name: "startCombat", enemy: {
 					id: 5,
 					health: 100,
 					mana: 100,
-					xp: 100
+					xp: 100,
+					damage: 50
 					}
 				};
 
 //var playerData = {"name":"Niels","id":300,"avatar":1,"health":100,"mana":100,"experience":100,"skills":[]};
 
 
-//$( document ).ready(function() {
-  //startCombat( testEventData );
-//});
+$( document ).ready(function() {
+	//startCombat( testEventData );
+});
 
 
 var enemy = null;
+var enemyID = 0;
 
-function startCombat( data,flee ) {
+function startCombat( data ) {
+	enemy = data.enemy;
+	startCombatWithoutData(false);
+}
+function startCombatWithoutData(flee) {
 	
 	var hp 		= player.health;
 	var mana 	= player.mana;
 	var xp 		= player.experience;
 
-	enemy 		= data.enemy;
-
 	console.log( 'hp:'+hp );
 	$('#ui-battle-popup').show( 'fade' );
 
-	$('#ui-battle-name').text( randomName());
+	$('#ui-battle-name').html( randomName());
 
-	$("#ui-battle-avatar").attr('src',avatars[data.enemy.id]);
-	$("#ui-battle-status").html('<div style="padding:20px;height:56px;background-color:#06790C;width:'+data.enemy.health+'%">MONSTER HP:'+data.enemy.health+'%</div><div style="height:56px;padding:20px;background-color:#3F3F7A;width:'+mana+'%">YOUR MANA:'+mana+'%</div><div style="height:56px;padding:20px;background-color:#77E283;width:'+hp+'%">YOUR HP:'+hp+'%</div>');
-	$("#ui-battle-options").html('<button id="hit">hit</button><button id="doge">doge</button><button id="flee">flee</button>');
+	$("#ui-battle-avatar").attr('src',avatars[enemyID]);
+	$("#ui-battle-status").html('<div style="padding:20px;height:56px;background-color:#06790C;width:'+enemy.health+'%">MONSTER HP:'+enemy.health+'%</div><div style="height:56px;padding:20px;background-color:#3F3F7A;width:'+mana+'%">YOUR MANA:'+mana+'%</div><div style="height:56px;padding:20px;background-color:#77E283;width:'+hp+'%">YOUR HP:'+hp+'%</div>');
+	$("#ui-battle-options").html('<button id="hit">hit</button><button id="dodge">dodge</button><button id="flee">flee</button>');
 
 		if(hp<1){
 			finishCombat( 'defeated',hp, mana, xp );
 			$('#ui-battle-popup').hide( 2500 );
-			alert('You are dead :(');
+			
+$( "#ui-battle-lose" ).show( 2500 ).hide( 2500 );
+
 		}else if(flee){
 			finishCombat( 'flee',hp, mana, xp );
 			$('#ui-battle-popup').hide( 2500 );
-		}else if(data.enemy.health<1){
-			finishCombat( 'victory',hp, mana, xp );
+		}else if(enemy.health<1){
+			finishCombat( 'victory',hp, mana, xp + parseInt(player.level) * 3 );
 			$('#ui-battle-popup').hide( 2500 );
-			alert('Wou won!');
+			
+$( "#ui-battle-win" ).show( 2500 ).hide( 2500 );
+
 		}
 }
 
 $( document ).on( "click", "#hit", function() {
 
-	var damage = randomDamage(player.level,player.level+10);
-	if(player.health<1) damage = 1;
+	var damage = randomDamage(player.level,parseInt(player.level)+10);
+	console.log("1");
+	console.log(damage);
+	console.log(player.health);
+	if(player.mana<1) damage = 1;
 
+	console.log(player.health);
 	enemy.health  = enemy.health -damage;
-	player.health = player.health - damage/2;
-	player.mana   = player.mana  -5;
+	console.log(enemy.damage);
+	player.health = player.health - randomDamage(enemy.damage, enemy.damage + 10);
+	console.log(player.health);
+	player.mana   = player.mana  - 5;
+	console.log(player.health);
 	
-	startCombat(testEventData);
+	startCombatWithoutData();
 });
 
-$( document ).on( "click", "#doge", function() {
+$( document ).on( "click", "#dodge", function() {
 
 	var damage = randomDamage(0,3);
 
 	player.health = player.health - damage;
 	player.mana   = player.mana  -10;
 
-	startCombat(testEventData);
+	startCombatWithoutData();
 });
 
 $( document ).on( "click", "#flee", function() {
@@ -74,14 +89,14 @@ $( document ).on( "click", "#flee", function() {
 	player.health = player.health/2;
 	player.mana   = player.mana/2;
 
-	startCombat(testEventData, true);
+	startCombatWithoutData(true);
 });
 
 function randomDamage(min,max){
-	return Math.floor((Math.random() * max) + min);
+	return Math.floor((Math.random() * (max - min)) + min);
 }
 
-function finishCombat(status,hp, mana, xp){
-	console.log(status);
-}
+// function finishCombat(status,hp, mana, xp){
+// 	console.log(status);
+// }
 

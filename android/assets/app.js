@@ -2,6 +2,8 @@ var started = false;
 var currentBeacon = 418;
 var state = 'setup'; // 'combat', 'map', 'finish'
 
+var isCombat = false;
+
 // My player
 var player = {
 	health: 100,
