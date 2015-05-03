@@ -25,12 +25,10 @@ handlePost = function(data, response) {
 	var zone = GameData.beacons[data.beaconID];
 	var position = GameData.zones[zone].position;
 
-	if(zone == 7 && Global.playerStates[data.playerID].status != 'combat') {
+	if(zone == 7) {
 		Global.playerStates[data.playerID].player.health = Math.min(Global.playerStates[data.playerID].player.health + 5, 100);
 		Global.playerStates[data.playerID].player.mana = Math.min(Global.playerStates[data.playerID].player.mana + 5, 100);
-		if(Global.playerStates[data.playerID].status == 'defeated') {
-			Global.playerStates[data.playerID].status = 'alive';
-		}
+		Global.playerStates[data.playerID].status = 'alive';
 	}
 
 	/* Position */

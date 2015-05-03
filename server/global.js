@@ -7,7 +7,7 @@ var local = module.exports;
 var lastTimestamp = new Date().getTime() / 1000;
 var dTimestamp = 0;
 
-local.countdown = 5;
+local.countdown = 60;
 local.state = 'start'; /* running, done */
 
 local.players = { };
