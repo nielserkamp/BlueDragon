@@ -4,3 +4,6 @@ Game created during the Movin Hackathon 2015. A small RPG game that uses the Mov
 
 ## RPG Map
 ![RPG Map](images/map_v1.png)
+
+## Corresponding building map
+![Building Map](images/images/map-hd.png)
