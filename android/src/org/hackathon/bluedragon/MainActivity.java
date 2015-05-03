@@ -109,19 +109,27 @@ public class MainActivity extends Activity implements MovinSDKCallback,
 			current = closestBeacon;
 		}
 		
-		if(closestBeacon.distance < 8) {
+		if(closestBeacon.distance < 4) { 
 			current = closestBeacon;
 		}
 		
 		long time = TimingProvider.getInstance().getTime() - prev;
 		prev = TimingProvider.getInstance().getTime();
 		
+		callJavascript("onBeaconId(" + current.beacon.getMinor() + ")");
 		//showToast("closest beacon: " + current.beacon.getMinor() + " range: " + current.distance + " time: " + time, true);
 	}
 
 	long prev = 0;
-	private void callJavascript(String javascript) {
-		screen.loadUrl("javascript:" + javascript);
+	private void callJavascript(final String javascript) {
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				screen.loadUrl("javascript:" + javascript);
+			}
+		});
+		
 	}
 
 	public void showToast(final String text, final boolean shortTime) {

@@ -13,6 +13,10 @@ function setupPlayer(name, avatarId) {
 	]);
 }
 
+function sendEasyAction(actions) {
+	sendAction(playerID, currentBeacon, actions);
+}
+
 function sendAction(userID, beaconID, actions) {
 	var message = {
 		'playerID' : userID,
@@ -23,7 +27,7 @@ function sendAction(userID, beaconID, actions) {
 			console.log("HI");
 	$.ajax({
 		type: "POST",
-		url: "http://192.168.1.119:1337",
+		url: "http://192.168.0.109:1337",
 		data: JSON.stringify(message),
 		dataType: "text",
 		success: function(data) {
@@ -38,6 +42,22 @@ function sendAction(userID, beaconID, actions) {
 	});
 }
 
+// Victory status: 'victory', 'flee', 'defeated'
+// health: health left
+// mana: mana left
+function finishCombat(victoryStatus, health, mana, experienceGained) {
+	isCombat = false;
+	sendEasyAction([
+			{
+				name: "finishCombat",
+				victoryStatus: victoryStatus,
+				health: health,
+				mana: mana,
+				experienceGained: experienceGained
+			}
+		]);
+}
+
 function handleState(data) {
 	started = true;
 
@@ -45,7 +65,8 @@ function handleState(data) {
 	state = data.state;
 
 	// Set player
-	player = data.player;
+	if(isCombat == false)
+		player = data.player;
 
 	// Set players
 	players = data.players;
@@ -55,9 +76,12 @@ function handleState(data) {
 
 	// Draw avatars
 	drawAvatars();
-	// Parse events
-	// TODO
-
-
-
+	for(var i = 0; i < data.events.length; i++) {
+		var evt = data.events[i];
+		if(evt.name == "startCombat") {
+			isCombat = true;
+			enemyID = randomDamage(0, avatars.length - 1);
+			startCombat(evt);
+		}
+	}
 }
